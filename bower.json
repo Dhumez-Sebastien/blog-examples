@@ -1,0 +1,19 @@
+{
+  "name": "dhumez-sebastien",
+  "version": "0.0.1",
+  "description": "Blog examples",
+  "dependencies": {
+    "pixi.js": "latest"
+  },
+  "authors": [
+    "Dhumez Sebastien"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

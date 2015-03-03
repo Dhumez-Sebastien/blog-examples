@@ -1,2 +1,3 @@
-# blog-examples
+# Dhumez Sébastien Blog-examples
+
 All my blog examples
