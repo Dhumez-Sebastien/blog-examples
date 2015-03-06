@@ -1,15 +1,16 @@
-/**
- * Tile
- *
- * @module :: Tile
- * @description	:: Classe permettant la création d'une Tile.
- */
+///<reference path="./defLoader.d.ts" />
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+/**
+ * Tile
+ *
+ * @module :: Tile
+ * @description	:: Classe permettant la création d'une Tile.
+ */
 var Engine;
 (function (Engine) {
     var Tile = (function (_super) {
@@ -28,16 +29,16 @@ var Engine;
             this.position.x += isoX * (Engine.Config.tileWidth / 2) + Engine.Config.offsetX;
             this.position.y += isoY * (Engine.Config.tileHeight / 2) + Engine.Config.offsetY;
             // Puis on y ajoute l'intéractivité
-            this.setInteractivity(true);
+            this._setInteractivity(true);
         }
         /**
          * Permet d'ajouter ou supprimer l'intéractivité d'une Tile.
-         * @method setInteractivity
+         * @method _setInteractivity
          * @private
          *
          * @param interactive {Boolean}     Permet de définir si la Tile doit être intéractive ou non.
          */
-        Tile.prototype.setInteractivity = function (interactive) {
+        Tile.prototype._setInteractivity = function (interactive) {
             if (interactive) {
                 // Rend la Tile interactive
                 this.interactive = true;

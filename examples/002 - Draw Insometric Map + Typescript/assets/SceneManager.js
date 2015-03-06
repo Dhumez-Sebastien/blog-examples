@@ -1,3 +1,4 @@
+///<reference path="./defLoader.d.ts" />
 /**
  * That's Manage all Game Scenes
  */
@@ -52,6 +53,7 @@ var Engine;
             }
         };
         SceneManager.loop = function () {
+            Engine.Config.calculateOffset();
             requestAnimFrame(function () {
                 SceneManager.loop();
             });

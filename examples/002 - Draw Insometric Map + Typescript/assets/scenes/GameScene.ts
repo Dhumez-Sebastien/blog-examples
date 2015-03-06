@@ -1,24 +1,50 @@
+///<reference path="./../defLoader.d.ts" />
+
+/**
+ * GameScene
+ *
+ * @module :: GameScene
+ * @description	:: Classe permettant de crée la scène de "jeu" de l'exemple.
+ */
+
 module Engine {
     export class GameScene extends Engine.Scene {
 
+        /**
+         * Constructeur
+         */
         constructor() {
             super();
 
-            var TilesetImage = new Engine.Tileset('assets/images/ayolan-tilesetIsometrique.png');
-
-            TilesetImage.on('loaded', function() {
-                var randomMap = new Engine.Map().randomMap(10, 10, 0, 10);
-
-                console.log('Image Loaded...');
-                console.log(this.texture);
-            });
-
-            TilesetImage.load(); // when comment this line, my game works
-
+            // On ajoute le conteneur qui doit contenir les cartes de l'exemple à la scène.
             this.addChild(Engine.GameMap.container);
         }
 
+        /**
+         * Cette méthode permet l'éxecution de paramètres lors du premier démarrage de la scène uniquement.
+         * @method onStart
+         */
+        public onStart() : void {
+            super.onStart();
 
+            console.log('Enter in Game Scene');
+
+            // Génération de la carte
+            var generatedMap : any = {
+                data : Engine.Utils.generateMap(10, 10, 0, 10),
+                url : 'assets/images/ayolan-tilesetIsometrique.png',
+                width : 10,
+                height : 10
+            };
+
+            // Puis on lance son chargement
+            Engine.GameMap.loadMap(generatedMap);
+        }
+
+        /**
+         * Permet la mise à jour de la scène.
+         * @method update
+         */
         public update() : void {
             super.update();
         }

@@ -1,24 +1,49 @@
+///<reference path="./../defLoader.d.ts" />
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+/**
+ * GameScene
+ *
+ * @module :: GameScene
+ * @description	:: Classe permettant de cr�e la sc�ne de "jeu" de l'exemple.
+ */
 var Engine;
 (function (Engine) {
     var GameScene = (function (_super) {
         __extends(GameScene, _super);
+        /**
+         * Constructeur
+         */
         function GameScene() {
             _super.call(this);
-            var TilesetImage = new Engine.Tileset('assets/images/ayolan-tilesetIsometrique.png');
-            TilesetImage.on('loaded', function () {
-                var randomMap = new Engine.Map().randomMap(10, 10, 0, 10);
-                console.log('Image Loaded...');
-                console.log(this.texture);
-            });
-            TilesetImage.load(); // when comment this line, my game works
+            // On ajoute le conteneur qui doit contenir les cartes de l'exemple � la sc�ne.
             this.addChild(Engine.GameMap.container);
         }
+        /**
+         * Cette m�thode permet l'�xecution de param�tres lors du premier d�marrage de la sc�ne uniquement.
+         * @method onStart
+         */
+        GameScene.prototype.onStart = function () {
+            _super.prototype.onStart.call(this);
+            console.log('Enter in Game Scene');
+            // G�n�ration de la carte
+            var generatedMap = {
+                data: Engine.Utils.generateMap(10, 10, 0, 10),
+                url: 'assets/images/ayolan-tilesetIsometrique.png',
+                width: 10,
+                height: 10
+            };
+            // Puis on lance son chargement
+            Engine.GameMap.loadMap(generatedMap);
+        };
+        /**
+         * Permet la mise � jour de la sc�ne.
+         * @method update
+         */
         GameScene.prototype.update = function () {
             _super.prototype.update.call(this);
         };

@@ -11,4 +11,5 @@
 ///<reference path="./SceneManager.ts" />
 ///<reference path="./Tile.ts" />
 ///<reference path="./Tileset.ts" />
+///<reference path="./TilesetLoader.ts" />
 ///<reference path="./Utils.ts" />

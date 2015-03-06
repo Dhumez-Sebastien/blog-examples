@@ -1,3 +1,5 @@
+///<reference path="./defLoader.d.ts" />
+
 /**
  * Tile
  *
@@ -24,17 +26,17 @@ module Engine {
             this.position.y += isoY * (Engine.Config.tileHeight / 2) + Engine.Config.offsetY;
 
             // Puis on y ajoute l'intéractivité
-            this.setInteractivity(true);
+            this._setInteractivity(true);
         }
 
         /**
          * Permet d'ajouter ou supprimer l'intéractivité d'une Tile.
-         * @method setInteractivity
+         * @method _setInteractivity
          * @private
          *
          * @param interactive {Boolean}     Permet de définir si la Tile doit être intéractive ou non.
          */
-        private setInteractivity(interactive : boolean) : void {
+        private _setInteractivity(interactive : boolean) : void {
             if (interactive) {
                 // Rend la Tile interactive
                 this.interactive = true;

@@ -1,42 +1,71 @@
+///<reference path="./../defLoader.d.ts" />
+
+/**
+ * IntroScene
+ *
+ * @module :: IntroScene
+ * @description	:: Classe permettant de crée la scène d'introduction de l'exemple.
+ */
+
 module Engine {
     export class IntroScene extends Engine.Scene {
 
-        private logo: PIXI.Sprite;
+        /**
+         * Contient le logo de Pixi.js qui est affiché lors du démarrage de la scène
+         *
+         * @property _logo
+         * @type {object}
+         * @private
+         */
+        private _logo: PIXI.Sprite;
 
+        /**
+         * Cette variable permet de connaître si l'animation est en phase d'apparition ou disparition.
+         *
+         * @property _tilesetList
+         * @type {object}
+         * @private
+         */
         private _out : boolean = false;
 
+        /**
+         * Constructeur
+         */
         constructor() {
             super();
-            this.setBackgroundColor(0x000000);
 
-            this.logo = PIXI.Sprite.fromImage("assets/images/logo.png");
-            this.addChild(this.logo);
+            this._logo = PIXI.Sprite.fromImage("assets/images/logo.png");
+            this.addChild(this._logo);
 
-            this.logo.scale.x = this.logo.scale.y = SceneManager.defaultWidth/512;
+            this._logo.scale.x = this._logo.scale.y = SceneManager.defaultWidth/512;
 
 
-            this.logo.anchor.x = 0.5;
-            this.logo.anchor.y = 0.5;
-            this.logo.alpha = 0;
+            this._logo.anchor.x = 0.5;
+            this._logo.anchor.y = 0.5;
+            this._logo.alpha = 0;
 
             // move the sprite to the center of the screen
-            this.logo.position.x = SceneManager.defaultWidth / 2;
-            this.logo.position.y = SceneManager.defaultHeight /2;
+            this._logo.position.x = SceneManager.defaultWidth / 2;
+            this._logo.position.y = SceneManager.defaultHeight /2;
 
         }
 
-        public update() {
+        /**
+         * Permet la mise à jour de la scène.
+         * @method update
+         */
+        public update() : void {
             super.update();
 
             if (!this._out) {
-                if (this.logo.alpha < 1) {
-                    this.logo.alpha += 0.01;
+                if (this._logo.alpha < 1) {
+                    this._logo.alpha += 0.01;
                 } else {
                     this._out = true;
                 }
             } else {
-                if (this.logo.alpha > 0) {
-                    this.logo.alpha -= 0.01;
+                if (this._logo.alpha > 0) {
+                    this._logo.alpha -= 0.01;
                 } else {
                     SceneManager.goToScene('game');
                 }

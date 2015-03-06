@@ -1,3 +1,5 @@
+///<reference path="./defLoader.d.ts" />
+
 /**
  * That's Manage all Game Scenes
  */
