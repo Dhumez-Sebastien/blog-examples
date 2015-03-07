@@ -1,5 +1,12 @@
 ///<reference path="./defLoader.d.ts" />
 
+/**
+ * Utils
+ *
+ * @module :: Utils
+ * @description	:: Classe statique contenant divers utilitaires
+ */
+
 module Engine {
     export class Utils {
 

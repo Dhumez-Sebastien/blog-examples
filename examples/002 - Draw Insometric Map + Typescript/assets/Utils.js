@@ -1,4 +1,10 @@
 ///<reference path="./defLoader.d.ts" />
+/**
+ * Utils
+ *
+ * @module :: Utils
+ * @description	:: Classe statique contenant divers utilitaires
+ */
 var Engine;
 (function (Engine) {
     var Utils = (function () {

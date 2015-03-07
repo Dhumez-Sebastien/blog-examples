@@ -18,7 +18,7 @@ var Engine;
         /**
          * Constructeur
          *
-         * @return {Engine.Map}     Retourne la carte courante
+         * @param mapConfig {any}       Objet au format JSON contenant les paramètres de la carte à réaliser.
          */
         function Map(mapConfig) {
             _super.call(this);
@@ -35,42 +35,29 @@ var Engine;
             this._tileWidth = mapConfig.width;
             this._tileHeight = mapConfig.height;
             this._tilesetUrl = mapConfig.url;
-            console.log('Map is correctly build');
             // On demande le chargement du Tileset
             Engine.Tileset.load([this._tilesetUrl]);
+            // Scope
             var self = this;
+            // Une fois le Tileset correctement chargé, on demande l'affichage de la carte
             Engine.Tileset.onReady(this._tilesetUrl, function () {
                 self._draw();
             });
         }
+        /**
+         * Permet de dessiné la carte
+         * @method _draw
+         * @private
+         */
         Map.prototype._draw = function () {
-            console.log('Draw order');
-            var tileset = Engine.Tileset.getTileset(this._tilesetUrl);
+            // On va chercher le Tileset afin d'obtenir le tableau contenant la liste des textures des différentes Tiles
+            var tileset = Engine.Tileset.getTileset(this._tilesetUrl), tileCounter = 0;
             for (var y = 0; y < this._tileHeight; y++) {
                 for (var x = 0; x < this._tileWidth; x++) {
-                    var tileNumber = this._ground[(y * this._tileWidth) + x], tile = new PIXI.Sprite(tileset.getTile(tileNumber));
-                    console.log(tile);
-                    tile.position.x += (x - y) * (Engine.Config.tileWidth / 2) + Engine.Config.offsetX;
-                    tile.position.y += (x + y) * (Engine.Config.tileHeight / 2) + Engine.Config.offsetY;
-                    // Rend la Tile interactive
-                    tile.interactive = true;
-                    // Création de la zone de collision avec la souris
-                    tile.hitArea = new PIXI.Polygon([
-                        new PIXI.Point(50, 25),
-                        new PIXI.Point(100, 50),
-                        new PIXI.Point(50, 50 + 25),
-                        new PIXI.Point(0, 50)
-                    ]);
-                    // Application d'une teinte quand la souris survol la tile
-                    tile.mouseover = tile.touchstart = function (data) {
-                        this.tint = 0x178c77;
-                    };
-                    // Suppression de celle-ci une fois que la souris quitte la Tile
-                    tile.mouseout = tile.touchend = function (data) {
-                        this.tint = 0xffffff;
-                    };
-                    // On ajoute la Tile à la carte
-                    this.addChild(tile);
+                    // Création de la Tile en lui envoyant sa texture et sa position
+                    this.addChild(new Engine.Tile(tileset.getTile(this._ground[tileCounter]), x, y));
+                    // On incremente le compteur de Tile
+                    tileCounter++;
                 }
             }
         };

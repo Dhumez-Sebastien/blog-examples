@@ -53,7 +53,6 @@ var Engine;
             }
         };
         SceneManager.loop = function () {
-            Engine.Config.calculateOffset();
             requestAnimFrame(function () {
                 SceneManager.loop();
             });

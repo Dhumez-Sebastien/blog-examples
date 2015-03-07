@@ -29,7 +29,8 @@ var Engine;
          */
         GameScene.prototype.onStart = function () {
             _super.prototype.onStart.call(this);
-            console.log('Enter in Game Scene');
+            // On calcule le d�calage de la carte afin qu'elle soit centr� correctement
+            Engine.Config.calculateOffset();
             // G�n�ration de la carte
             var generatedMap = {
                 data: Engine.Utils.generateMap(10, 10, 0, 10),

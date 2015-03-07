@@ -1,0 +1,11 @@
+{
+  "name": "dhumez-sebastien-blog",
+  "version": "0.0.1",
+  "author" : "Dhumez Sébastien",
+  "licence" : "MIT",
+  "homepage" : "http://www.dhumez-sebastien.com",
+  "dependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-concat": "~0.5.1"
+  }
+}

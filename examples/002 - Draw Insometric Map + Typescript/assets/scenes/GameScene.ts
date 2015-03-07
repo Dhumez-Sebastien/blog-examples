@@ -27,7 +27,8 @@ module Engine {
         public onStart() : void {
             super.onStart();
 
-            console.log('Enter in Game Scene');
+            // On calcule le décalage de la carte afin qu'elle soit centré correctement
+            Engine.Config.calculateOffset();
 
             // Génération de la carte
             var generatedMap : any = {

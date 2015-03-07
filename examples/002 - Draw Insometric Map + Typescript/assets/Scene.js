@@ -6,29 +6,45 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 /**
- * That's used to extends Scenes creation
+ * Scene
+ *
+ * @module :: Scene
+ * @description	:: Classe permettant la cr�ation de sc�ne.
  */
 var Engine;
 (function (Engine) {
     var Scene = (function (_super) {
         __extends(Scene, _super);
+        /**
+         * Constructeur
+         *
+         * @param color {number} optional       Permet de d�finir une couleur d'arri�re plan de la sc�ne.
+         *                                      Cette couleur doit �tre au format h�xadecimal.
+         */
         function Scene(color) {
-            _super.call(this, color || 0x000000);
+            _super.call(this, color || 0xffffff);
             /**
              * Check if Scene is already started 1 time
              * @type {boolean}
              * @private
              */
             this._started = false;
-            this.paused = false;
-            this.updateCB = function () {
-            };
+            /**
+             * Permet de d�finir le status de pause de la sc�ne
+             * @type {boolean}
+             * @private
+             */
+            this._paused = false;
         }
         /**
          * This function is called before Scene is resume
          */
+        /**
+         * Cette fonction est appel� juste avant chaque d�marrage de la sc�ne.
+         *
+         * @method beforeResume
+         */
         Scene.prototype.beforeResume = function () {
-            // Used by children before resume
             if (!this._started) {
                 this.onStart();
                 this._started = true;
@@ -37,29 +53,45 @@ var Engine;
         /**
          * Used essentially by children when the Scene start for the first time.
          */
+        /**
+         * Cette fonction est appel� lors du premier d�marrage de la sc�ne. Son appel est donc unique.
+         *
+         * @method onStart
+         */
         Scene.prototype.onStart = function () {
         };
-        Scene.prototype.onUpdate = function (updateCB) {
-            this.updateCB = updateCB;
-        };
+        /**
+         * Mise � jour de la sc�ne quand celle-ci est active.
+         *
+         * @method update
+         */
         Scene.prototype.update = function () {
-            this.updateCB();
-        };
-        Scene.prototype.pause = function () {
-            this.paused = true;
         };
         /**
-         * Set the pause system to false
+         * Permet la mise en pause de la sc�ne.
+         *
+         * @method pause
+         */
+        Scene.prototype.pause = function () {
+            this._paused = true;
+        };
+        /**
+         * Permet la mise en marche de la sc�ne
+         *
+         * @method pause
          */
         Scene.prototype.resume = function () {
-            this.paused = false;
+            this._paused = false;
             this.beforeResume();
         };
         /**
-         * Check if the Scene is actually in pause
+         * Permet de conna�tre si la sc�ne est en pause ou non.
+         *
+         * @method pause
+         * @return {boolean}        Retourne le status "pause" de la sc�ne
          */
         Scene.prototype.isPaused = function () {
-            return this.paused;
+            return this._paused;
         };
         return Scene;
     })(PIXI.Stage);

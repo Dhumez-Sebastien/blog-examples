@@ -1,8 +1,12 @@
 ///<reference path="./defLoader.d.ts" />
 
 /**
- * That's used to extends Scenes creation
+ * Scene
+ *
+ * @module :: Scene
+ * @description	:: Classe permettant la création de scène.
  */
+
 module Engine {
     export class Scene extends PIXI.Stage {
 
@@ -13,20 +17,34 @@ module Engine {
          */
         private _started : boolean = false;
 
+        /**
+         * Permet de définir le status de pause de la scène
+         * @type {boolean}
+         * @private
+         */
+        private _paused: boolean = false;
 
-        private paused: boolean = false;
-        private updateCB = function () { };
-
+        /**
+         * Constructeur
+         *
+         * @param color {number} optional       Permet de définir une couleur d'arrière plan de la scène.
+         *                                      Cette couleur doit être au format héxadecimal.
+         */
         constructor(color ?: number) {
-            super(color || 0x000000);
+            super(color || 0xffffff);
+
         }
 
         /**
          * This function is called before Scene is resume
          */
-        public beforeResume() : void {
-            // Used by children before resume
 
+        /**
+         * Cette fonction est appelé juste avant chaque démarrage de la scène.
+         *
+         * @method beforeResume
+         */
+        public beforeResume() : void {
             if (!this._started) {
                 this.onStart();
                 this._started = true;
@@ -36,36 +54,52 @@ module Engine {
         /**
          * Used essentially by children when the Scene start for the first time.
          */
+
+        /**
+         * Cette fonction est appelé lors du premier démarrage de la scène. Son appel est donc unique.
+         *
+         * @method onStart
+         */
         public onStart() : void {
 
         }
 
-        public onUpdate(updateCB: () => void ) : void {
-            this.updateCB = updateCB;
-        }
-
+        /**
+         * Mise à jour de la scène quand celle-ci est active.
+         *
+         * @method update
+         */
         public update() : void {
-            this.updateCB();
-        }
 
-        public pause() : void {
-            this.paused = true;
         }
 
         /**
-         * Set the pause system to false
+         * Permet la mise en pause de la scène.
+         *
+         * @method pause
          */
+        public pause() : void {
+            this._paused = true;
+        }
 
+        /**
+         * Permet la mise en marche de la scène
+         *
+         * @method pause
+         */
         public resume() : void {
-            this.paused = false;
+            this._paused = false;
             this.beforeResume();
         }
 
         /**
-         * Check if the Scene is actually in pause
+         * Permet de connaître si la scène est en pause ou non.
+         *
+         * @method pause
+         * @return {boolean}        Retourne le status "pause" de la scène
          */
         public isPaused() : boolean {
-            return this.paused;
+            return this._paused;
         }
     }
 }

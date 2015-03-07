@@ -1,0 +1,21 @@
+{
+  "basic" : {
+    "src" : [
+      "examples/002 - Draw Insometric Map + Typescript/assets/Config.js",
+      "examples/002 - Draw Insometric Map + Typescript/assets/GameMap.js",
+      "examples/002 - Draw Insometric Map + Typescript/assets/Map.js",
+      "examples/002 - Draw Insometric Map + Typescript/assets/Scene.js",
+
+      "examples/002 - Draw Insometric Map + Typescript/assets/scenes/GameScene.js",
+      "examples/002 - Draw Insometric Map + Typescript/assets/scenes/IntroScene.js",
+
+      "examples/002 - Draw Insometric Map + Typescript/assets/SceneManager.js",
+      "examples/002 - Draw Insometric Map + Typescript/assets/Tile.js",
+      "examples/002 - Draw Insometric Map + Typescript/assets/Tileset.js",
+      "examples/002 - Draw Insometric Map + Typescript/assets/TilesetLoader.js",
+      "examples/002 - Draw Insometric Map + Typescript/assets/Utils.js",
+      "examples/002 - Draw Insometric Map + Typescript/app.js"
+    ],
+    "dest" : "examples/002 - Draw Insometric Map + Typescript/bin/example-002-engine.min.js"
+  }
+}

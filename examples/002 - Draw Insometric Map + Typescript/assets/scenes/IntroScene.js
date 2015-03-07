@@ -28,13 +28,16 @@ var Engine;
              * @private
              */
             this._out = false;
+            // On charge le logo de Pixi.js puis on l'ajoute � la Sc�ne
             this._logo = PIXI.Sprite.fromImage("assets/images/logo.png");
             this.addChild(this._logo);
-            this._logo.scale.x = this._logo.scale.y = Engine.SceneManager.defaultWidth / 512;
-            this._logo.anchor.x = 0.5;
-            this._logo.anchor.y = 0.5;
+            // On fait un aggrandissement sur le logo de Pixi afin qu'il ai la taille de la sc�ne
+            this._logo.scale.x = this._logo.scale.y = Engine.SceneManager.defaultWidth / (Engine.SceneManager.defaultWidth / 2);
+            // On prend comme point d'accroche le centre de l'image
+            this._logo.anchor.x = this._logo.anchor.y = 0.5;
+            // On rend le logo transparent afin d'avoir un effet de fondu lors de l'ouverture de la page
             this._logo.alpha = 0;
-            // move the sprite to the center of the screen
+            // On d�place le logo au centre de l'�cran
             this._logo.position.x = Engine.SceneManager.defaultWidth / 2;
             this._logo.position.y = Engine.SceneManager.defaultHeight / 2;
         }

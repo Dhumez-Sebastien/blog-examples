@@ -11,6 +11,3 @@ Engine.SceneManager.createScene('intro', Engine.IntroScene);
 
 // On entre dans la Scène d'introduction
 Engine.SceneManager.goToScene('intro');
-
-// On calcule le décalage de la carte afin qu'elle soit centré correctement
-Enfine.Config.calculateOffset();

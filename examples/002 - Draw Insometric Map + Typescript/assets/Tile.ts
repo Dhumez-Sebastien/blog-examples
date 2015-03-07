@@ -22,8 +22,8 @@ module Engine {
             super(texture);
 
             // Mise en place de la Tile à la bonne position
-            this.position.x += isoX * (Engine.Config.tileWidth / 2) + Engine.Config.offsetX;
-            this.position.y += isoY * (Engine.Config.tileHeight / 2) + Engine.Config.offsetY;
+            this.position.x += (isoX - isoY) * (Engine.Config.tileWidth / 2) + Engine.Config.offsetX;
+            this.position.y += (isoX + isoY) * (Engine.Config.tileHeight / 2) + Engine.Config.offsetY;
 
             // Puis on y ajoute l'intéractivité
             this._setInteractivity(true);

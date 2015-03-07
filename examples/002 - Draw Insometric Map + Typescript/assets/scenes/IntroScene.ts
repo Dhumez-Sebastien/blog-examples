@@ -34,20 +34,22 @@ module Engine {
         constructor() {
             super();
 
+            // On charge le logo de Pixi.js puis on l'ajoute à la Scène
             this._logo = PIXI.Sprite.fromImage("assets/images/logo.png");
             this.addChild(this._logo);
 
-            this._logo.scale.x = this._logo.scale.y = SceneManager.defaultWidth/512;
+            // On fait un aggrandissement sur le logo de Pixi afin qu'il ai la taille de la scène
+            this._logo.scale.x = this._logo.scale.y = SceneManager.defaultWidth / (SceneManager.defaultWidth / 2);
 
+            // On prend comme point d'accroche le centre de l'image
+            this._logo.anchor.x = this._logo.anchor.y = 0.5;
 
-            this._logo.anchor.x = 0.5;
-            this._logo.anchor.y = 0.5;
+            // On rend le logo transparent afin d'avoir un effet de fondu lors de l'ouverture de la page
             this._logo.alpha = 0;
 
-            // move the sprite to the center of the screen
+            // On déplace le logo au centre de l'écran
             this._logo.position.x = SceneManager.defaultWidth / 2;
             this._logo.position.y = SceneManager.defaultHeight /2;
-
         }
 
         /**
