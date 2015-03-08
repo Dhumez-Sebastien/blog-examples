@@ -17,7 +17,7 @@ module Engine {
          * @param isoX {Number}             Position isométrique X et la Tile
          * @param isoY {Number}             Position isométrique Y de la Tile
          */
-        constructor(texture : any, isoX : number, isoY : number) {
+        constructor(texture : PIXI.Texture, isoX : number, isoY : number) {
             // Applique la texture de la Tile au Sprite
             super(texture);
 

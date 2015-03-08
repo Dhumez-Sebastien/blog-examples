@@ -83,7 +83,7 @@ module Engine {
 
             // Une fois le Tileset correctement charger et découper, nous pouvons envoyer les callback
             for (var i : number = 0, ls : number = this._onReadyCb.length; i < ls; i++) {
-                this._onReadyCb[i]();
+                this._onReadyCb[i](this);
             }
         }
 
@@ -119,10 +119,10 @@ module Engine {
          *
          * @param cb {function}             Callback à éxecuter une fois le Tileset chargé
          */
-        public onReady(cb : () => void) : void {
+        public onReady(cb : (tileset : Engine.TilesetLoader) => void) : void {
             // Si le Tileset est déjà chargé, on envoie directement le Callback. Sinon, on l'ajoute à la liste.
             if (this._ready) {
-                cb();
+                cb(this);
             } else {
                 this._onReadyCb.push(cb);
             }

@@ -11,13 +11,22 @@ module Engine {
     export class GameScene extends Engine.Scene {
 
         /**
+         * Contient le conteneur des cartes
+         *
+         * @property _gameMapContainer
+         * @type {PIXI.DisplayObjectContainer}
+         * @private
+         */
+        private _gameMapContainer: PIXI.DisplayObjectContainer = Engine.GameMap;
+
+        /**
          * Constructeur
          */
         constructor() {
             super();
 
-            // On ajoute le conteneur qui doit contenir les cartes de l'exemple à la scène.
-            this.addChild(Engine.GameMap.container);
+            // On ajoute le conteneur de la carte à la Scène de jeu
+            this.addChild(this._gameMapContainer);
         }
 
         /**
@@ -30,16 +39,23 @@ module Engine {
             // On calcule le décalage de la carte afin qu'elle soit centré correctement
             Engine.Config.calculateOffset();
 
+            // Taille de la carte en Tile
+            var mapWidth : number = 10,
+                mapHeight : number = 10;
+
             // Génération de la carte
             var generatedMap : any = {
-                data : Engine.Utils.generateMap(10, 10, 0, 10),
+                data : Engine.Utils.generateMap(mapWidth, mapHeight, 0, 10),
                 url : 'assets/images/ayolan-tilesetIsometrique.png',
-                width : 10,
-                height : 10
+                width : mapWidth,
+                height : mapHeight
             };
 
             // Puis on lance son chargement
             Engine.GameMap.loadMap(generatedMap);
+
+            // On cache le conteneur de la carte par défaut
+            this._gameMapContainer.alpha = 0;
         }
 
         /**
@@ -47,6 +63,11 @@ module Engine {
          * @method update
          */
         public update() : void {
+            // Apparition en fondu de la carte
+            if (this._gameMapContainer.alpha < 1) {
+                this._gameMapContainer.alpha += 0.01;
+            }
+
             super.update();
         }
     }

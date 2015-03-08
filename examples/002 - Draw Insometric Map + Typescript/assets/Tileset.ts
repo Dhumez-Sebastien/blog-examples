@@ -66,7 +66,7 @@ module Engine {
          * @param tilesetUrl {string}       Url du Tileset
          * @param cb {function}             Callback une fois le Tileset charger et découper
          */
-        public static onReady(tilesetUrl : string, cb : () => void) : void {
+        public static onReady(tilesetUrl : string, cb : (tileset : Engine.TilesetLoader) => void) : void {
             // Vérification de l'existance du Tileset dans la liste
             if (this._tilesetList[tilesetUrl]) {
                 this._tilesetList[tilesetUrl].onReady(cb);

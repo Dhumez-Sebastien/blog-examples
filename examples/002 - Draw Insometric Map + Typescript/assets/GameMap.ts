@@ -8,26 +8,27 @@
  */
 
 module Engine {
-    export class GameMap {
 
-        /**
-         * Contient les différentes cartes de l'exemple.
-         *
-         * @property container
-         * @type {PIXI.DisplayObjectContainer}
-         * @static
-         */
-        public static container : PIXI.DisplayObjectContainer = new PIXI.DisplayObjectContainer();
+    /**
+     * Attention, vous remarquerez qu'ici, nous n'exportons pas la classe. Celle-ci est créer et exporter en bas de page afin
+     * qu'elle soit bien prise en compte comme conteneur statique.
+     */
+    class GameMapStatic extends PIXI.DisplayObjectContainer {
 
         /**
          * Permet de charger une carte.
          * @method loadMap
          * @static
          *
-         * @param mapConfig {any}       Paramètres de la carte qui dois être chargé.
+         * @param mapConfig {any}       Paramètres de la carte qui doit être chargé.
          */
-        public static loadMap(mapConfig : any) : void {
-            this.container.addChild(new Engine.Map(mapConfig));
+        public loadMap(mapConfig : any) : void {
+            this.addChild(new Engine.Map(mapConfig));
         }
     }
+
+    /**
+     * On créer et exporte la classe afin qu'elle soit statique
+     */
+    export var GameMap = new GameMapStatic();
 }

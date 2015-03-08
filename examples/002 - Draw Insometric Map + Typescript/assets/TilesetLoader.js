@@ -74,7 +74,7 @@ var Engine;
             // On peut consid�rer que le Tileset est maintenant pr�t
             this._ready = true;
             for (var i = 0, ls = this._onReadyCb.length; i < ls; i++) {
-                this._onReadyCb[i]();
+                this._onReadyCb[i](this);
             }
         };
         /**
@@ -111,7 +111,7 @@ var Engine;
         TilesetLoader.prototype.onReady = function (cb) {
             // Si le Tileset est d�j� charg�, on envoie directement le Callback. Sinon, on l'ajoute � la liste.
             if (this._ready) {
-                cb();
+                cb(this);
             }
             else {
                 this._onReadyCb.push(cb);

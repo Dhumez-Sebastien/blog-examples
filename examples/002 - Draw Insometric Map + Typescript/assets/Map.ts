@@ -67,7 +67,7 @@ module Engine {
             var self : Engine.Map = this;
 
             // Une fois le Tileset correctement chargé, on demande l'affichage de la carte
-            Engine.Tileset.onReady(this._tilesetUrl, function() {
+            Engine.Tileset.onReady(this._tilesetUrl, function(tileset) {
                 self._draw();
             });
         }

@@ -36,10 +36,6 @@ module Engine {
         }
 
         /**
-         * This function is called before Scene is resume
-         */
-
-        /**
          * Cette fonction est appelé juste avant chaque démarrage de la scène.
          *
          * @method beforeResume
@@ -52,11 +48,8 @@ module Engine {
         }
 
         /**
-         * Used essentially by children when the Scene start for the first time.
-         */
-
-        /**
          * Cette fonction est appelé lors du premier démarrage de la scène. Son appel est donc unique.
+         * Elle est principalement utilisé par les classes enfants.
          *
          * @method onStart
          */

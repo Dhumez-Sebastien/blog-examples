@@ -1,4 +1,10 @@
 ///<reference path="./defLoader.d.ts" />
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 /**
  * GameMap
  *
@@ -7,29 +13,30 @@
  */
 var Engine;
 (function (Engine) {
-    var GameMap = (function () {
-        function GameMap() {
+    /**
+     * Attention, vous remarquerez qu'ici, nous n'exportons pas la classe. Celle-ci est créer et exporter en bas de page afin
+     * qu'elle soit bien prise en compte comme conteneur statique.
+     */
+    var GameMapStatic = (function (_super) {
+        __extends(GameMapStatic, _super);
+        function GameMapStatic() {
+            _super.apply(this, arguments);
         }
         /**
          * Permet de charger une carte.
          * @method loadMap
          * @static
          *
-         * @param mapConfig {any}       Paramètres de la carte qui dois être chargé.
+         * @param mapConfig {any}       Paramètres de la carte qui doit être chargé.
          */
-        GameMap.loadMap = function (mapConfig) {
-            this.container.addChild(new Engine.Map(mapConfig));
+        GameMapStatic.prototype.loadMap = function (mapConfig) {
+            this.addChild(new Engine.Map(mapConfig));
         };
-        /**
-         * Contient les différentes cartes de l'exemple.
-         *
-         * @property container
-         * @type {PIXI.DisplayObjectContainer}
-         * @static
-         */
-        GameMap.container = new PIXI.DisplayObjectContainer();
-        return GameMap;
-    })();
-    Engine.GameMap = GameMap;
+        return GameMapStatic;
+    })(PIXI.DisplayObjectContainer);
+    /**
+     * On créer et exporte la classe afin qu'elle soit statique
+     */
+    Engine.GameMap = new GameMapStatic();
 })(Engine || (Engine = {}));
 //# sourceMappingURL=GameMap.js.map

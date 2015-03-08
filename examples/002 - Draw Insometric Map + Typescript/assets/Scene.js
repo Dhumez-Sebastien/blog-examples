@@ -37,9 +37,6 @@ var Engine;
             this._paused = false;
         }
         /**
-         * This function is called before Scene is resume
-         */
-        /**
          * Cette fonction est appel� juste avant chaque d�marrage de la sc�ne.
          *
          * @method beforeResume
@@ -51,10 +48,8 @@ var Engine;
             }
         };
         /**
-         * Used essentially by children when the Scene start for the first time.
-         */
-        /**
          * Cette fonction est appel� lors du premier d�marrage de la sc�ne. Son appel est donc unique.
+         * Elle est principalement utilis� par les classes enfants.
          *
          * @method onStart
          */
