@@ -1,96 +1,113 @@
 ///<reference path="./defLoader.d.ts" />
 /**
- * That's Manage all Game Scenes
+ * SceneManager
+ *
+ * @module :: SceneManager
+ * @description	:: Classe statique permettant de manager toute les différentes scènes de notre exemple/jeu.
  */
 var Engine;
 (function (Engine) {
     var SceneManager = (function () {
         function SceneManager() {
         }
-        // Build Scene Manager
-        SceneManager.create = function (width, height, rendererOptions, divId, scale) {
-            if (scale === void 0) { scale = false; }
-            if (SceneManager.renderer)
+        /**
+         * Permet la création du système de rendu
+         * @method create
+         * @static
+         *
+         * @param width {string}                                Largeur en pixel par défaut du rendu
+         * @param height {string}                               Hauteur en pixel par défaut du rendu
+         * @param rendererOptions {PIXI.PixiRendererOptions}    Options de rendu de PIXI
+         * @param divId {string}                                Id de la div ou doit être ajouter le rendu
+         * @return {SceneManager}                               On retourne la classe
+         */
+        SceneManager.create = function (width, height, rendererOptions, divId) {
+            // On vérifie si le rendu est déjà actif
+            if (SceneManager.renderer) {
                 return SceneManager;
+            }
+            // On applique les valeur de taille par défaut
             SceneManager.defaultWidth = SceneManager.width = width;
             SceneManager.defaultHeight = SceneManager.height = height;
+            // On crée et assigne le rendu
             SceneManager.renderer = PIXI.autoDetectRenderer(SceneManager.width, SceneManager.height, rendererOptions);
+            // Si l'utilisateur à soumis une div dans laquelle doit etre ajouter le rendu, on l'utilise, sinon, on ajoute le rendu au document.
             if (divId) {
                 document.getElementById(divId).appendChild(SceneManager.renderer.view);
             }
             else {
                 document.body.appendChild(SceneManager.renderer.view);
             }
-            if (scale) {
-                SceneManager._rescale();
-                window.addEventListener("resize", SceneManager._rescale, false);
-            }
+            // On lance le système de rendu
             requestAnimFrame(SceneManager.loop);
             return this;
         };
         /**
-         * Resize game
-         * @author          Dhumez Sébastien
+         * Cette "boucle sans fin" permet la mise à jour automatique de la scène active.
+         * @method loop
+         * @static
          */
-        SceneManager._rescale = function () {
-            SceneManager.ratio = Math.min(window.innerWidth / SceneManager.defaultWidth, window.innerHeight / SceneManager.defaultHeight);
-            SceneManager.width = SceneManager.defaultWidth * SceneManager.ratio;
-            SceneManager.height = SceneManager.defaultHeight * SceneManager.ratio;
-            SceneManager.renderer.resize(SceneManager.width, SceneManager.height);
-        };
-        // Apply ratio
-        SceneManager._applyRatio = function (displayObj, ratio) {
-            if (ratio == 1) {
-                return;
-            }
-            var object = displayObj;
-            object.position.x = object.position.x * ratio;
-            object.position.y = object.position.y * ratio;
-            object.scale.x = object.scale.x * ratio;
-            object.scale.y = object.scale.y * ratio;
-            for (var i = 0; i < object.children.length; i++) {
-                SceneManager._applyRatio(object.children[i], ratio);
-            }
-        };
         SceneManager.loop = function () {
             requestAnimFrame(function () {
                 SceneManager.loop();
             });
+            // On la scène est en pauve ou qu'aucune scène n'est disposible, on stop
             if (!this.currentScene || this.currentScene.isPaused())
                 return;
+            // Sinon, mise à jour de la scène active
             this.currentScene.update();
-            //this._applyRatio(this.currentScene, this.ratio);
+            // Mise à jour du rendu de la scène active
             this.renderer.render(this.currentScene);
-            //this._applyRatio(this.currentScene, 1 / this.ratio);
-        };
-        SceneManager.createScene = function (id, CScene) {
-            if (SceneManager.scenes[id])
-                return undefined;
-            SceneManager.scenes[id] = new CScene();
-            return SceneManager.scenes[id];
         };
         /**
-         * Get a specific Scene by her Id
+         * Permet la création de scène
+         * @method createScene
+         * @static
          *
-         * @param id        If of Scene
+         * @param id {string}       Id de la scène à créer
+         * @param CScene {Scene}    Contient la classe de la scène qui va être créer
+         * @return {Scene}          Retourne la scène qui vient d'être créer
          */
-        SceneManager.getScene = function (id) {
-            return SceneManager.scenes[id] || false;
+        SceneManager.createScene = function (id, CScene) {
+            // On vérifie si la scène n'existe pas
+            if (SceneManager._scenes[id]) {
+                return void 0;
+            }
+            // Si c'est le cas, on l'a crée et l'associe à son id
+            SceneManager._scenes[id] = new CScene();
+            // Puis on l'a retourne
+            return SceneManager._scenes[id];
         };
+        /**
+         * Permet de changer de scène d'après son id
+         * @method goToScene
+         * @static
+         *
+         * @param id {string}       Id de la scène qui doit devenir active
+         * @return {boolean}        True si tout s'est bien passé, false si aucun changement n'a eu lieu
+         */
         SceneManager.goToScene = function (id) {
-            if (SceneManager.scenes[id]) {
-                if (SceneManager.currentScene)
+            if (SceneManager._scenes[id]) {
+                // Si une scène est active, on la met en pause
+                if (SceneManager.currentScene) {
                     SceneManager.currentScene.pause();
-                SceneManager.currentScene = SceneManager.scenes[id];
+                }
+                // On change de scène puis on l'active
+                SceneManager.currentScene = SceneManager._scenes[id];
                 SceneManager.currentScene.resume();
                 return true;
             }
             return false;
         };
-        // Contain all Game Scenes
-        SceneManager.scenes = {};
-        // Offset ratio
-        SceneManager.ratio = 1;
+        /**
+         * Contient l'ensemble des scènes crée
+         *
+         * @property _scenes
+         * @type {object}
+         * @private
+         * @static
+         */
+        SceneManager._scenes = {};
         return SceneManager;
     })();
     Engine.SceneManager = SceneManager;

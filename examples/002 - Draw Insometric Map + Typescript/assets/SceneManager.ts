@@ -1,126 +1,180 @@
 ///<reference path="./defLoader.d.ts" />
 
 /**
- * That's Manage all Game Scenes
+ * SceneManager
+ *
+ * @module :: SceneManager
+ * @description	:: Classe statique permettant de manager toute les différentes scènes de notre exemple/jeu.
  */
 module Engine {
     export class SceneManager {
 
-        // Contain all Game Scenes
-        private static scenes: any = {};
+        /**
+         * Contient l'ensemble des scènes crée
+         *
+         * @property _scenes
+         * @type {object}
+         * @private
+         * @static
+         */
+        private static _scenes: {} = {};
 
-        // Contain the current Scene
+        /**
+         * Contient la scène actuellement active
+         *
+         * @property currentScene
+         * @type {Engine.Scene}
+         * @private
+         * @static
+         */
         public static currentScene: Engine.Scene;
 
-        // The Pixi Renderer
-        public static renderer: any;
+        /**
+         * Contient le système de rendu de PIXI
+         *
+         * @property renderer
+         * @type {PIXI.PixiRenderer}
+         * @private
+         * @static
+         */
+        public static renderer: PIXI.PixiRenderer;
 
-        // Offset ratio
-        public static ratio: number = 1;
-
-        // The default Size
+        /**
+         * Largeur actuelle en pixel par défaut du rendu
+         *
+         * @property defaultWidth
+         * @type {number}
+         * @private
+         * @static
+         */
         public static defaultWidth: number;
+
+        /**
+         * Hauteur actuelle en pixel par défaut du rendu
+         *
+         * @property defaultHeight
+         * @type {number}
+         * @private
+         * @static
+         */
         public static defaultHeight: number;
 
-        // The current Size
+        /**
+         * Largeur actuelle en pixel du rendu
+         *
+         * @property width
+         * @type {number}
+         * @private
+         * @static
+         */
         public static width: number;
+
+        /**
+         * Hauteur actuelle en pixel du rendu
+         *
+         * @property width
+         * @type {number}
+         * @private
+         * @static
+         */
         public static height: number;
 
-        // Build Scene Manager
-        public static create(width: number, height: number, rendererOptions : any, divId : string, scale: boolean = false) : SceneManager {
-            if (SceneManager.renderer)
+        /**
+         * Permet la création du système de rendu
+         * @method create
+         * @static
+         *
+         * @param width {string}                                Largeur en pixel par défaut du rendu
+         * @param height {string}                               Hauteur en pixel par défaut du rendu
+         * @param rendererOptions {PIXI.PixiRendererOptions}    Options de rendu de PIXI
+         * @param divId {string}                                Id de la div ou doit être ajouter le rendu
+         * @return {SceneManager}                               On retourne la classe
+         */
+        public static create(width: number, height: number, rendererOptions : PIXI.PixiRendererOptions, divId : string) : SceneManager {
+            // On vérifie si le rendu est déjà actif
+            if (SceneManager.renderer) {
                 return SceneManager;
+            }
 
+            // On applique les valeur de taille par défaut
             SceneManager.defaultWidth = SceneManager.width = width;
             SceneManager.defaultHeight = SceneManager.height = height;
 
+            // On crée et assigne le rendu
             SceneManager.renderer = PIXI.autoDetectRenderer(SceneManager.width, SceneManager.height, rendererOptions);
 
+            // Si l'utilisateur à soumis une div dans laquelle doit etre ajouter le rendu, on l'utilise, sinon, on ajoute le rendu au document.
             if (divId) {
                 document.getElementById(divId).appendChild(SceneManager.renderer.view);
             } else {
                 document.body.appendChild(SceneManager.renderer.view);
             }
 
-
-            if (scale) {
-                SceneManager._rescale();
-                window.addEventListener("resize", SceneManager._rescale, false);
-            }
-
+            // On lance le système de rendu
             requestAnimFrame(SceneManager.loop);
 
             return this;
         }
 
         /**
-         * Resize game
-         * @author          Dhumez Sébastien
+         * Cette "boucle sans fin" permet la mise à jour automatique de la scène active.
+         * @method loop
+         * @static
          */
-
-        private static _rescale() : void
-        {
-            SceneManager.ratio = Math.min(window.innerWidth / SceneManager.defaultWidth, window.innerHeight / SceneManager.defaultHeight)
-            SceneManager.width = SceneManager.defaultWidth * SceneManager.ratio;
-            SceneManager.height = SceneManager.defaultHeight * SceneManager.ratio;
-            SceneManager.renderer.resize(SceneManager.width, SceneManager.height);
-        }
-
-        // Apply ratio
-        public static _applyRatio(displayObj: Scene, ratio: number) {
-            if (ratio == 1) {
-                return;
-            }
-
-            var object: any = displayObj;
-            object.position.x = object.position.x * ratio;
-            object.position.y = object.position.y * ratio;
-            object.scale.x = object.scale.x * ratio;
-            object.scale.y = object.scale.y * ratio;
-
-            for (var i = 0; i < object.children.length; i++) {
-                SceneManager._applyRatio(object.children[i], ratio);
-            }
-        }
-        private static loop() {
+        private static loop() : void {
             requestAnimFrame(function () { SceneManager.loop() });
 
+            // On la scène est en pauve ou qu'aucune scène n'est disposible, on stop
             if (!this.currentScene || this.currentScene.isPaused()) return;
 
+            // Sinon, mise à jour de la scène active
             this.currentScene.update();
 
-            //this._applyRatio(this.currentScene, this.ratio);
+            // Mise à jour du rendu de la scène active
             this.renderer.render(this.currentScene);
-            //this._applyRatio(this.currentScene, 1 / this.ratio);
-
-        }
-
-        public static createScene(id: string, CScene: any): Scene {
-            if (SceneManager.scenes[id])
-                return undefined;
-
-            SceneManager.scenes[id] = new CScene();
-
-            return SceneManager.scenes[id];
         }
 
         /**
-         * Get a specific Scene by her Id
+         * Permet la création de scène
+         * @method createScene
+         * @static
          *
-         * @param id        If of Scene
+         * @param id {string}       Id de la scène à créer
+         * @param CScene {Scene}    Contient la classe de la scène qui va être créer
+         * @return {Scene}          Retourne la scène qui vient d'être créer
          */
-        public static getScene(id : string) : any {
-            return SceneManager.scenes[id] || false;
+        public static createScene(id: string, CScene: any): Scene {
+            // On vérifie si la scène n'existe pas
+            if (SceneManager._scenes[id]) {
+                return void 0;
+            }
+
+            // Si c'est le cas, on l'a crée et l'associe à son id
+            SceneManager._scenes[id] = new CScene();
+
+            // Puis on l'a retourne
+            return SceneManager._scenes[id];
         }
 
+        /**
+         * Permet de changer de scène d'après son id
+         * @method goToScene
+         * @static
+         *
+         * @param id {string}       Id de la scène qui doit devenir active
+         * @return {boolean}        True si tout s'est bien passé, false si aucun changement n'a eu lieu
+         */
         public static goToScene(id: string): boolean {
-
-            if (SceneManager.scenes[id]) {
-                if (SceneManager.currentScene)
+            if (SceneManager._scenes[id]) {
+                // Si une scène est active, on la met en pause
+                if (SceneManager.currentScene) {
                     SceneManager.currentScene.pause();
+                }
 
-                SceneManager.currentScene = SceneManager.scenes[id];
+                // On change de scène puis on l'active
+                SceneManager.currentScene = SceneManager._scenes[id];
                 SceneManager.currentScene.resume();
+
                 return true;
             }
             return false;
