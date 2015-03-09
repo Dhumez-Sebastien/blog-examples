@@ -58,11 +58,14 @@ var Engine;
          * @method update
          */
         GameScene.prototype.update = function () {
+            // Monitored code goes here
+            stats.begin();
             // Apparition en fondu de la carte
             if (this._gameMapContainer.alpha < 1) {
                 this._gameMapContainer.alpha += 0.01;
             }
             _super.prototype.update.call(this);
+            stats.end();
         };
         return GameScene;
     })(Engine.Scene);

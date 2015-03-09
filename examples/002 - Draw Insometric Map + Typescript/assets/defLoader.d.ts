@@ -13,3 +13,5 @@
 ///<reference path="./Tileset.ts" />
 ///<reference path="./TilesetLoader.ts" />
 ///<reference path="./Utils.ts" />
+
+declare var stats : any;
