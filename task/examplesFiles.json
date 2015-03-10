@@ -1,5 +1,5 @@
 {
-  "basic" : {
+  "002" : {
     "src" : [
       "examples/002 - Draw Insometric Map + Typescript/assets/Config.js",
       "examples/002 - Draw Insometric Map + Typescript/assets/GameMap.js",
@@ -17,5 +17,47 @@
       "examples/002 - Draw Insometric Map + Typescript/app.js"
     ],
     "dest" : "examples/002 - Draw Insometric Map + Typescript/bin/example-002-engine.min.js"
+  },
+  "003" : {
+    "src" : [
+      "examples/003/assets/Config.js",
+      "examples/003/assets/GameMap.js",
+      "examples/003/assets/Map.js",
+      "examples/003/assets/Scene.js",
+
+      "examples/003/assets/scenes/GameScene.js",
+      "examples/003/assets/scenes/IntroScene.js",
+
+      "examples/003/assets/SceneManager.js",
+      "examples/003/assets/Tile.js",
+      "examples/003/assets/Tileset.js",
+      "examples/003/assets/TilesetLoader.js",
+      "examples/003/assets/Utils.js",
+      "examples/003/app.js"
+    ],
+    "dest" : "examples/003/bin/example-003-engine.min.js"
+  },
+  "003-2" : {
+    "options": {
+      "sourceMap" : false,
+      "stripBanners" : true
+    },
+    "src" : [
+      "examples/004 - Structure and use Tiled/assets/engine/core/Config.js",
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/map/GameMap.js",
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/map/Map.js",
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/core/Scene.js",
+
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/scenes/GameScene.js",
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/scenes/IntroScene.js",
+
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/core/SceneManager.js",
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/map/Tile.js",
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/map/Tileset.js",
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/loader/TilesetLoader.js",
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/utils/Utils.js",
+      "examples/004 - Use Tiled To Draw Maps/assets/engine/launcher.js"
+    ],
+    "dest" : "examples/004 - Use Tiled To Draw Maps/bin/example-004-engine.min.js"
   }
 }
