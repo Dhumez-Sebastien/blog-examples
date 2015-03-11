@@ -43,21 +43,21 @@
       "stripBanners" : true
     },
     "src" : [
-      "examples/004 - Structure and use Tiled/assets/engine/core/Config.js",
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/map/GameMap.js",
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/map/Map.js",
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/core/Scene.js",
+      "examples/003 - Structure and use Tiled/assets/engine/core/Config.js",
+      "examples/003 - Structure and use Tiled/assets/engine/map/GameMap.js",
+      "examples/003 - Structure and use Tiled/assets/engine/map/Map.js",
+      "examples/003 - Structure and use Tiled/assets/engine/core/Scene.js",
 
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/scenes/GameScene.js",
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/scenes/IntroScene.js",
+      "examples/003 - Structure and use Tiled/assets/engine/scenes/GameScene.js",
+      "examples/003 - Structure and use Tiled/assets/engine/scenes/IntroScene.js",
 
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/core/SceneManager.js",
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/map/Tile.js",
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/map/Tileset.js",
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/loader/TilesetLoader.js",
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/utils/Utils.js",
-      "examples/004 - Use Tiled To Draw Maps/assets/engine/launcher.js"
+      "examples/003 - Structure and use Tiled/assets/engine/core/SceneManager.js",
+      "examples/003 - Structure and use Tiled/assets/engine/map/Tile.js",
+      "examples/003 - Structure and use Tiled/assets/engine/map/Tileset.js",
+      "examples/003 - Structure and use Tiled/assets/engine/loader/TilesetLoader.js",
+      "examples/003 - Structure and use Tiled/assets/engine/utils/Utils.js",
+      "examples/003 - Structure and use Tiled/assets/engine/launcher.js"
     ],
-    "dest" : "examples/004 - Use Tiled To Draw Maps/bin/example-004-engine.min.js"
+    "dest" : "examples/003 - Structure and use Tiled/bin/example-003-engine.min.js"
   }
 }
