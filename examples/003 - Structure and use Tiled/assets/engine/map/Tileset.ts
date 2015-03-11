@@ -10,6 +10,8 @@
 module Engine {
     export class Tileset {
 
+        private static _onAllTilesetsLoadedCb : () => void;
+
         /**
          * Contient la liste des Tilesets actuellement utilisé.
          *
@@ -18,6 +20,9 @@ module Engine {
          * @private
          */
         private static _tilesetList : {} = {};
+
+        private static _tilesetCounter : number = 0;
+
 
         /**
          * Permet la récupération d'un tileset d'après son Url.
@@ -48,14 +53,30 @@ module Engine {
          *
          * @param tilesetList {string[]}    Array contenant une liste d'Url de Tileset à charger
          */
-        public static load(tilesetList : string[]) : void {
+        public static load(tilesetList : string[], cb :() => void) : void {
             if (tilesetList.length > 0) {
+                // On vérifie si un callback a été envoyé par l'utilisateur
+                if (cb) {
+                    this.onAllTilesetsLoaded = cb;
+                }
+
+                this._tilesetCounter = tilesetList.length;
+
                 for (var i : number = 0, ls : number = tilesetList.length; i < ls; i++) {
                     if (!this._tilesetList[tilesetList[i]]) {
                         this._tilesetList[tilesetList[i]] = new Engine.TilesetLoader(tilesetList[i]);
                     }
                 }
+
+
             }
+        }
+
+        public static onAllTilesetsLoaded(cb : () => void) : void {
+            if (cb) {
+                this.onAllTilesetsLoaded = cb;
+            }
+
         }
 
         /**

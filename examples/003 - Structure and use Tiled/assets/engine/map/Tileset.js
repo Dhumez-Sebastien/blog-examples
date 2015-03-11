@@ -16,13 +16,22 @@ var Engine;
                 throw ('Unknown Tileset : ' + tilesetUrl);
             }
         };
-        Tileset.load = function (tilesetList) {
+        Tileset.load = function (tilesetList, cb) {
             if (tilesetList.length > 0) {
+                if (cb) {
+                    this.onAllTilesetsLoaded = cb;
+                }
+                this._tilesetCounter = tilesetList.length;
                 for (var i = 0, ls = tilesetList.length; i < ls; i++) {
                     if (!this._tilesetList[tilesetList[i]]) {
                         this._tilesetList[tilesetList[i]] = new Engine.TilesetLoader(tilesetList[i]);
                     }
                 }
+            }
+        };
+        Tileset.onAllTilesetsLoaded = function (cb) {
+            if (cb) {
+                this.onAllTilesetsLoaded = cb;
             }
         };
         Tileset.onReady = function (tilesetUrl, cb) {
@@ -34,6 +43,7 @@ var Engine;
             }
         };
         Tileset._tilesetList = {};
+        Tileset._tilesetCounter = 0;
         return Tileset;
     })();
     Engine.Tileset = Tileset;

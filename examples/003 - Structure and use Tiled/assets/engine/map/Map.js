@@ -10,12 +10,14 @@ var Engine;
         __extends(Map, _super);
         function Map(mapConfig) {
             _super.call(this);
+            this._layers = [];
             this._ground = [];
             this._ground = mapConfig.data;
             this._tileWidth = mapConfig.width;
             this._tileHeight = mapConfig.height;
             this._tilesetUrl = mapConfig.url;
-            Engine.Tileset.load([this._tilesetUrl]);
+            Engine.Tileset.load(mapConfig.tilesets, function () {
+            });
             var self = this;
             Engine.Tileset.onReady(this._tilesetUrl, function (tileset) {
                 self._draw();

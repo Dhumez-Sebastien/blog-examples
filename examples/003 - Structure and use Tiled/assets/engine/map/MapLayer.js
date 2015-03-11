@@ -6,16 +6,13 @@ var __extends = this.__extends || function (d, b) {
 };
 var Engine;
 (function (Engine) {
-    var GameMapStatic = (function (_super) {
-        __extends(GameMapStatic, _super);
-        function GameMapStatic() {
+    var MapLayer = (function (_super) {
+        __extends(MapLayer, _super);
+        function MapLayer() {
             _super.apply(this, arguments);
         }
-        GameMapStatic.prototype.loadMap = function (mapConfig) {
-            this.addChild(new Engine.Map(mapConfig));
-        };
-        return GameMapStatic;
+        return MapLayer;
     })(PIXI.DisplayObjectContainer);
-    Engine.GameMap = new GameMapStatic();
+    Engine.MapLayer = MapLayer;
 })(Engine || (Engine = {}));
-//# sourceMappingURL=GameMap.js.map
+//# sourceMappingURL=MapLayer.js.map

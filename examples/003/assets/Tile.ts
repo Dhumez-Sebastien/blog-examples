@@ -10,16 +10,26 @@
 module Engine {
     export class Tile extends PIXI.Sprite {
 
+        private _width : number;
+        private _height : number;
+
+
         /**
          * Constructeur de la classe Tile.
          *
          * @param texture {Boolean}         Permet de définir si la Tile doit être intéractive ou non.
          * @param isoX {Number}             Position isométrique X et la Tile
          * @param isoY {Number}             Position isométrique Y de la Tile
+         * @param width {Number}            Position isométrique X et la Tile
+         * @param height {Number}           Position isométrique Y de la Tile
          */
-        constructor(texture : PIXI.Texture, isoX : number, isoY : number) {
+        constructor(texture : PIXI.Texture, isoX : number, isoY : number, width : number, height : number) {
             // Applique la texture de la Tile au Sprite
             super(texture);
+
+            // On applique les valeurs contenant la taille de la Tile
+            this._width = width;
+            this._height = height;
 
             // Mise en place de la Tile à la bonne position
             this.position.x += isoX * Engine.Config.tileWidth + Engine.Config.offsetX;
@@ -44,9 +54,9 @@ module Engine {
                 // Création de la zone de collision avec la souris
                 this.hitArea = new PIXI.Polygon([
                         new PIXI.Point(0, 0),
-                        new PIXI.Point(16, 0),
-                        new PIXI.Point(16, 16),
-                        new PIXI.Point(0, 16)]
+                        new PIXI.Point(32, 0),
+                        new PIXI.Point(32, 32),
+                        new PIXI.Point(0, 32)]
                 );
 
                 // Application d'une teinte quand la souris survol la tile

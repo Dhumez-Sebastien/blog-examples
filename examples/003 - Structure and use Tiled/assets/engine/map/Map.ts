@@ -11,6 +11,15 @@ module Engine {
     export class Map extends PIXI.DisplayObjectContainer {
 
         /**
+         * Tableau contenant les calques disponible sur la carte
+         *
+         * @property _ground
+         * @type {number[]}
+         * @private
+         */
+        private _layers : Engine.MapLayer[] = [];
+
+        /**
          * Contient la liste des numeros des Tiles utilisé pour dessiné la carte.
          *
          * @property _ground
@@ -60,8 +69,10 @@ module Engine {
             this._tileHeight = mapConfig.height;
             this._tilesetUrl = mapConfig.url;
 
-            // On demande le chargement du Tileset
-            Engine.Tileset.load([this._tilesetUrl]);
+            // On demande le chargement des Tilesets
+            Engine.Tileset.load(mapConfig.tilesets, function() {
+
+            });
 
             // Scope
             var self : Engine.Map = this;
