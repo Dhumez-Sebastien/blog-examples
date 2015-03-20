@@ -2,10 +2,10 @@
 var canvasWidth = 1024;
 var canvasHeight = 768;
 
-// CrÃ©ation du Stage
+// Création du Stage
 var stage = new PIXI.Stage(0x000000);
 
-// CrÃ©ation du mode de rendu.
+// Création du mode de rendu.
 var renderer = PIXI.autoDetectRenderer(canvasWidth, canvasHeight, {
     antialiasing:false,
     transparent:true,
@@ -16,7 +16,7 @@ var div = document.getElementById('showExample');
 
 div.appendChild(renderer.view);
 
-// CrÃ©ation du conteneur de la carte
+// Création du conteneur de la carte
 var mapContainer = [];
 
 // Taille des Tiles sur la carte
@@ -37,7 +37,7 @@ var tilesetTextureHeight = 60;
 // Ratio d'aggrandissement/reduction
 var scaleRatio = 0.15;
 
-// DÃ©calage perso
+// Décalage perso
 var offset = {
     x : canvasWidth / 2,
     y : 50
@@ -62,7 +62,7 @@ for (var y = 0; y < 4; y++) {
     }
 }
 
-// Tableau contenant la liste des Tiles futurs dÃ©coupÃ©s
+// Tableau contenant la liste des Tiles futurs découpés
 var tileList = [];
 
 for (var i = 0; i < tilesetTextureHeight / tileTextureHeight; i++) {
@@ -80,13 +80,13 @@ for (var i = 0; i < tilesetTextureHeight / tileTextureHeight; i++) {
 }
 
 /**
- * Permet de gÃ©nÃ©rÃ© une carte alÃ©atoirement
+ * Permet de généré une carte aléatoirement
  *
  * @param width         Largeur de la carte en Tile
  * @param height        Hauteur de la carte en Tile
- * @param tileMin       NumÃ©ro minimum des Tiles Ã  utiliser
- * @param tileMax       NumÃ©ro maximum des Tiles Ã  utiliser
- * @return {Array}      Renvoie le tableau contenant la carte gÃ©nÃ©rÃ©
+ * @param tileMin       Numéro minimum des Tiles à utiliser
+ * @param tileMax       Numéro maximum des Tiles à utiliser
+ * @return {Array}      Renvoie le tableau contenant la carte généré
  */
 function generateMap(width, height, tileMin, tileMax) {
     var out = [];
@@ -105,7 +105,7 @@ function generateMap(width, height, tileMin, tileMax) {
     return out;
 }
 
-// GÃ©nÃ©ration de la carte alÃ©atoire
+// Génération de la carte aléatoire
 var mapGenerated = generateMap(tilemapWidth, tilemapHeight, 0, 5);
 
 for(var mapList = 0; mapList < mapContainer.length; mapList++) {
@@ -124,7 +124,7 @@ for(var mapList = 0; mapList < mapContainer.length; mapList++) {
     }
 }
 
-// DÃ©marrage de l'animation
+// Démarrage de l'animation
 requestAnimFrame(animate);
 
 // Fonction d'animation
